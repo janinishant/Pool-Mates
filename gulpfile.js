@@ -13,6 +13,7 @@ var elixir = require('laravel-elixir');
 
 elixir(function(mix) {
     mix.scripts([
+        'resources/assets/js/jquery.min.js',
         'resources/assets/js/*.js'
     ], '', './');
     mix.styles([

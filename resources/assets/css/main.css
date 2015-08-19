@@ -1,10 +1,43 @@
+/* latin */
+@font-face {
+    font-family: 'Dancing Script';
+    font-style: normal;
+    font-weight: 900;
+    src: local('Dancing Script Bold'), local('DancingScript-Bold'), url(../fonts/KGBfwabt0ZRLA5W1ywjowdZ1pH3HRdX2lLFmZY4nwnk.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
+body {
+    line-height: 1;
+    color: #000;
+    background: #fff;
+}
+html,
+body {
+    height: 100%;
+    width: 100%;
+}
+body {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400;
+    font-size: 14px/1.5;
+    color: #333;
+    background-color: #fff;
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    -webkit-font-feature-settings: 'liga', 'kern';
+    -moz-font-feature-settings: 'liga', 'kern';
+    font-feature-settings: 'liga', 'kern';
+}
 .main-header {
     height: 100%;
     width: 100%;
-    /*min-height: 450px;*/
+    min-height: 450px;
     color: #fff;
     text-align: center;
-    background-color: #E70B81;
+    background-color: rgb(234, 11, 140);
 }
 .main-header-content {
     position: absolute;
@@ -18,7 +51,310 @@
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
 }
+
+.main-header-text {
+    width: 90vw;
+    -webkit-animation: fadein 2s;
+    -ms-animation: fadein 2s;
+    animation: fadein 2s;
+    font-size: 41px;
+    font-weight: 300;
+    line-height: 60px;
+}
+.main-header-btn {
+    -webkit-transition: all 0.4s;
+    transition: all 0.4s;
+    color: inherit;
+    padding: 15px 20px 16px;
+    vertical-align: top;
+    cursor: pointer;
+    border: 1px solid #fff;
+    border-radius: 3px;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-animation: fadein 2s;
+    -ms-animation: fadein 2s;
+    animation: fadein 2s;
+    text-shadow: none;
+    color: #333;
+    background-color: #fff;
+    font-size: 22px;
+}
+.main-header-btn:hover {
+    box-shadow: 0 0 50px rgba(255,255,255,0.3);
+}
+.main-info {
+    *zoom: 1;
+    width: auto;
+    max-width: 1024px;
+    float: none;
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 0;
+    padding-right: 0;
+    background-color: #fff;
+}
+.main-info:before,
+.main-info:after {
+    content: '';
+    display: table;
+}
+.main-info:after {
+    clear: both;
+}
+.benefits {
+    *zoom: 1;
+    float: left;
+    clear: none;
+    text-align: inherit;
+    width: 100%;
+    margin-left: 0%;
+    margin-right: 3%;
+    *zoom: 1;
+    width: auto;
+    max-width: 1024px;
+    float: none;
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 0;
+    padding-right: 0;
+    padding: 50px;
+}
+.benefits:before,
+.benefits:after {
+    content: '';
+    display: table;
+}
+.benefits:after {
+    clear: both;
+}
+.benefits:last-child {
+    margin-right: 0%;
+}
+.benefits:before,
+.benefits:after {
+    content: '';
+    display: table;
+}
+.benefits:after {
+    clear: both;
+}
+.benefits .benefit {
+    margin-top: 50px;
+}
+@media screen and (min-width: 700px) {
+    .benefits .benefit {
+        *zoom: 1;
+        float: left;
+        clear: none;
+        text-align: inherit;
+        width: 48.5%;
+        margin-left: 0%;
+        margin-right: 3%;
+    }
+    .benefits .benefit:before,
+    .benefits .benefit:after {
+        content: '';
+        display: table;
+    }
+    .benefits .benefit:after {
+        clear: both;
+    }
+    .benefits .benefit:nth-child(2n) {
+        margin-right: 0%;
+        float: right;
+    }
+    .benefits .benefit:nth-child(2n+1) {
+        clear: both;
+    }
+}
+@media screen and (max-width: 700px) {
+    .benefits .benefit {
+        *zoom: 1;
+        float: left;
+        clear: none;
+        text-align: inherit;
+        width: 48.5%;
+        margin-left: 0%;
+        margin-right: 3%;
+        display: block;
+        clear: both;
+        float: none;
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .benefits .benefit:before,
+    .benefits .benefit:after {
+        content: '';
+        display: table;
+    }
+    .benefits .benefit:after {
+        clear: both;
+    }
+    .benefits .benefit:nth-child(4n) {
+        margin-right: 0%;
+        float: right;
+    }
+    .benefits .benefit:nth-child(4n+1) {
+        clear: both;
+    }
+    .benefits .benefit:first-child {
+        margin-left: auto;
+    }
+    .benefits .benefit:last-child {
+        margin-right: auto;
+    }
+}
+.benefits .benefit .benefit-title {
+    margin-bottom: 14px;
+    font-size: 22px;
+    font-weight: 500;
+}
+.benefits .benefit .benefit-text {
+    color: #7f8c8d;
+    font-size: 16px;
+    line-height: 26px;
+}
+
 .facebook-login-button {
     margin: 0 auto;
-    width: 40%;
+    width: 30%;
+}
+
+
+/*Some style I found onlien*/
+
+.white {
+    color: white;
+}
+
+.btn-lg {
+    font-size: 38px;
+    line-height: 1.33;
+    border-radius: 6px;
+}
+
+.box > .icon {
+    text-align: center;
+    position: relative;
+}
+
+.box > .icon > .image {
+    position: relative;
+    z-index: 2;
+    margin: auto;
+    width: 88px;
+    height: 88px;
+    border: 7px solid white;
+    line-height: 88px;
+    border-radius: 50%;
+    background: #63B76C;
+    vertical-align: middle;
+}
+
+.box > .icon:hover > .image {
+    border: 4px solid black;
+}
+
+.box > .icon > .image > i {
+    font-size: 40px !important;
+    color: #fff !important;
+}
+
+.box > .icon:hover > .image > i {
+    color: white !important;
+}
+
+.box > .icon > .info {
+    margin-top: -24px;
+    background: rgba(0, 0, 0, 0.04);
+    border: 1px solid #e0e0e0;
+    padding: 15px 0 10px 0;
+}
+
+.box > .icon > .info > h3.title {
+    color: #222;
+    font-weight: 500;
+}
+
+.box > .icon > .info > p {
+    color: #666;
+    line-height: 1.5em;
+    margin: 20px;
+}
+
+.box > .icon:hover > .info > h3.title, .box > .icon:hover > .info > p, .box > .icon:hover > .info > .more > a {
+    color: #222;
+}
+
+.box > .icon > .info > .more a {
+    color: #222;
+    line-height: 12px;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+.box > .icon:hover > .info > .more > a {
+    color: #000;
+    padding: 6px 8px;
+    border-bottom: 4px solid black;
+}
+
+.box .space {
+    height: 30px;
+}
+
+.navbar{
+    position: relative;
+    min-height: 70px;
+    margin-bottom: 0;
+    border: 1px solid transparent;
+    background-color: rgb(234, 11, 140);
+}
+
+.navbar-default .navbar-nav > li > a {
+    font-weight: 900;
+    color: #fff;
+}
+
+
+.navbar-default .navbar-brand {
+    padding: 13px 25px 17px;
+}
+
+.navbar-default .navbar-center-container {
+    float: none;
+    margin-left: 0;
+    position: absolute;
+    left: 0;
+    right: 0;
+}
+
+.lp-brand {
+    color: #fff;
+}
+@media only screen and (max-device-width: 320px) {
+    .navbar-default .navbar-toggle {
+        border-color: #fff;
+        border-width: 2px;
+    }
+}
+
+.dropdown-menu >li>a {
+    color: #fff;
+    font-weight: 900;
+}
+
+.navbar .navbar-brand .pm-title {
+    font-size: 30px;
+    color: #fff;
+    padding-left: 20px;
+    font-family: "Dancing Script";
+}
+
+#pool_mate_form .pm-long-button {
+    width: 100%;
 }

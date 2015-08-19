@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Laravel\Socialite\Facades\Socialite;
 use Redirect;
-
+use Auth;
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
 use App\AuthenticateUser;
 
 class AuthController extends Controller
@@ -17,10 +15,6 @@ class AuthController extends Controller
     }
 
     public function userHasLoggedIn ($user) {
-        echo "<pre>";
-        print_r($user);
-        echo "</pre>";
-        exit;
-
+        return Redirect::route('landing');
     }
 }

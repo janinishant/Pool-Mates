@@ -12,8 +12,11 @@
 */
 
 // goto home
-Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
+Route::get('/', ['as' => 'landing', 'uses' => 'HomeController@index']);
 
 //provider can be any, twitter, facebook, etc
 Route::get('login/{provider?}', 'AuthController@login');
 
+
+//testing GDM API
+Route::get('test', 'HomeController@testing');

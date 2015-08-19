@@ -24,7 +24,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      *
      * @var array
      */
-    protected $fillable = ['name', 'email', 'password'];
+    protected $fillable = ['name', 'email', 'password', 'provider_id'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -38,6 +38,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         if(!$user) {
             $user = User::create([
                 'provider_id' => $userData->id,
+                'provider' => 'facebook',
                 'name' => $userData->name,
                 'username' => $userData->nickname,
                 'email' => $userData->email,
