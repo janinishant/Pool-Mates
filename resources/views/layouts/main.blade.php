@@ -8,6 +8,8 @@
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
 
     <script type="application/javascript" src="{{ elixir('js/all.js') }}"></script>
+    {{--TODO: Check if this can be moved below--}}
+    <script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=poolMateAutoCompleteManager" async defer></script>
     <link rel="stylesheet" href="{{ elixir('css/all.css') }}"/>
 </head>
 <body>
