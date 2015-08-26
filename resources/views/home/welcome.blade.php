@@ -1,24 +1,22 @@
 @extends('layouts.main')
 @section('content')
     <div class="container" style="height: 100px; padding-top: 50px;">
-        <form name="pool_mate_form" id="pool_mate_form" class="form-horizontal well">
+        <form name="pool-mate-form" id="pool-mate-form" class="form-horizontal well">
             <div class="form-group">
-                <div class="col-sm-6">
+                <div class="col-sm-12 col-lg-4">
                     <label for="pick-up-location">Pick-up Location</label>
-                    <input id="pick-up-location" class="form-control input-group-lg reg_name" type="text" name="pick-up-location" title="Enter pick-up location" placeholder="Pick-up location">
+                    <p class="help-block"></p>
+                    <input id="pick-up-location" class="form-control input-group-lg reg_name" type="text" name="pick-up-location" title="Enter pick-up location" placeholder="Pick-up location" required>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-12 col-lg-4">
                     <label for="drop-off-location">Drop-off Location</label>
-                    <input id="drop-off-location" class="form-control input-group-lg reg_name" type="text" name="drop-off-location" title="Enter drop-off location" placeholder="Drop-off location">
+                    <p class="help-block"></p>
+                    <input id="drop-off-location" class="form-control input-group-lg reg_name" type="text" name="drop-off-location" title="Enter drop-off location" placeholder="Drop-off location" required>
                 </div>
-            </div><!--/form-group-->
-
-
-
-            <div class="form-group">
-                <div class="col-sm-3">
+                <div class="col-sm-12 col-lg-4">
                     <label for="pick-up-time" >Pick up time</label>
-                    <select multiple class="form-control" id="pick-up-time" name="pick-up-time">
+                    <p class="help-block"></p>
+                    <select multiple class="form-control" id="pick-up-time" name="pick-up-time" required>
                         <option>00:00</option>
                         <option>00:30</option>
                         <option>01:00</option>
