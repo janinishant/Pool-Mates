@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRequestStatusTable extends Migration
+class CreateRequestTimeTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,13 @@ class CreateRequestStatusTable extends Migration
     public function up()
     {
         //
-        Schema::create('request_statuses', function(Blueprint $table)
+        Schema::create('request_pickup_times', function(Blueprint $table)
         {
             $table->increments('id');
-            $table->string('name');
+            $table->string('request_id');
+            $table->string('time_id')->nullable();
+            $table->foreign('request_id')->references('id')->on('requests');
+            $table->foreign('time_id')->references('id')->on('pickup_times');
         });
     }
 
@@ -28,6 +31,6 @@ class CreateRequestStatusTable extends Migration
     public function down()
     {
         //
-        Schema::drop('request_statuses');
+        Schema::drop('requests');
     }
 }

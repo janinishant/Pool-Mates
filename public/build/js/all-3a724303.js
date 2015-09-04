@@ -962,7 +962,9 @@ var PoolMateForm = function () {
         //United States
         country: 'long_name',
         //Zip Postal code 90007
-        postal_code: 'short_name'
+        postal_code: 'short_name',
+        lat: true,
+        lng: true
     };
 };
 
@@ -1027,8 +1029,16 @@ PoolMateForm.prototype.sourceAddressChangeHandler = function(sourceAutocompleteO
     if (addressComponentsObject.hasOwnProperty('address_components')) {
         addressComponents = addressComponentsObject['address_components'];
     }
+
+    var lat = '', lng = '';
+    if (addressComponentsObject.hasOwnProperty('geometry')) {
+        if (addressComponentsObject.geometry.hasOwnProperty('location')) {
+            lat = addressComponentsObject.geometry.location.lat();
+            lng = addressComponentsObject.geometry.location.lng();
+        }
+    }
     var htmlSelector = this.controls.source.html_selector;
-    this.setAddressComponentsOnField(addressComponents, htmlSelector);
+    this.setAddressComponentsOnField(addressComponents, lat, lng, htmlSelector);
 };
 
 /**
@@ -1046,8 +1056,16 @@ PoolMateForm.prototype.destinationAddressChangeHandler = function(destinationAut
     if (addressComponentsObject.hasOwnProperty('address_components')) {
         addressComponents = addressComponentsObject['address_components'];
     }
+
+    var lat = '', lng = '';
+    if (addressComponentsObject.hasOwnProperty('geometry')) {
+        if (addressComponentsObject.geometry.hasOwnProperty('location')) {
+            lat = addressComponentsObject.geometry.location.lat();
+            lng = addressComponentsObject.geometry.location.lng();
+        }
+    }
     var htmlSelector = this.controls.destination.html_selector;
-    this.setAddressComponentsOnField(addressComponents, htmlSelector);
+    this.setAddressComponentsOnField(addressComponents,lat, lng, htmlSelector);
 };
 
 /**
@@ -1057,7 +1075,7 @@ PoolMateForm.prototype.destinationAddressChangeHandler = function(destinationAut
  *
  * $htmlField Jquery object on which to set data attributes
  */
-PoolMateForm.prototype.setAddressComponentsOnField = function (addressComponentValues, $htmlField) {
+PoolMateForm.prototype.setAddressComponentsOnField = function (addressComponentValues, lat, lng, $htmlField) {
     if (!$htmlField) {
         console.error("No html field passed");
     }
@@ -1077,6 +1095,9 @@ PoolMateForm.prototype.setAddressComponentsOnField = function (addressComponentV
             $($htmlField).data(addressType, addressComponentValue);
         }
     }
+
+    $($htmlField).data('lat', lat);
+    $($htmlField).data('lng', lng);
 };
 
 /**
@@ -1114,8 +1135,7 @@ PoolMateForm.prototype.requestSubmitHandler = function (submittedForm) {
         sourceAddressComponents: sourceAddressComponents,
         destinationAddressComponents: destinationAddressComponents
     };
-
-    formParams += $.param(auxiliaryAddressComponents);
+    formParams += '&'+ $.param(auxiliaryAddressComponents);
     this.findPoolMates(formParams);
 };
 
@@ -1125,15 +1145,15 @@ PoolMateForm.prototype.requestSubmitHandler = function (submittedForm) {
  */
 PoolMateForm.prototype.findPoolMates = function(queryData) {
     $.ajax({
-        url: '/api/getPoolMatesForRequest',
+        url: '/api/v1/request/  ',
         data: queryData,
-        type: 'GET',
+        type: 'POST',
         dataType: 'json',
         success: function(a,b,c) {
-
+            debugger;
         },
-        error: function() {
-
+        error: function(a,b,c) {
+            debugger;
         }
     })
 };

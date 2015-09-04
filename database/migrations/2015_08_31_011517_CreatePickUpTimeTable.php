@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRequestTimeTable extends Migration
+class CreatePickUpTimeTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,10 @@ class CreateRequestTimeTable extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('pickup_times', function(Blueprint $table) {
+            $table->increments('id');
+            $table->string('time_value');
+        });
     }
 
     /**
@@ -22,6 +25,6 @@ class CreateRequestTimeTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('pickup_times');
     }
 }

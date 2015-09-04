@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRequestsTable extends Migration
+class CreateRequestTable extends Migration
 {
     /**
      * Run the migrations.
@@ -16,13 +16,15 @@ class CreateRequestsTable extends Migration
         Schema::create('requests', function(Blueprint $table)
         {
             $table->increments('id');
-            $table->string('requester_id');
-            $table->string('source_address_id')->nullable();
-            $table->string('destination_address_id')->nullable();
-            $table->string('request_status');
+            $table->integer('requester_id',false,true);
+            $table->integer('source_address_id');
+            $table->integer('destination_address_id');
+            $table->integer('request_status_id');
             $table->timestamps();
             $table->foreign('requester_id')->references('id')->on('users');
-            $table->foreign('request_status')->references('id')->on('request_statuses');
+            $table->foreign('source_address_id')->references('id')->on('entity_address');
+            $table->foreign('destination_address_id')->references('id')->on('entity_address');
+            $table->foreign('request_status_id')->references('id')->on('request_statuses');
         });
     }
 
