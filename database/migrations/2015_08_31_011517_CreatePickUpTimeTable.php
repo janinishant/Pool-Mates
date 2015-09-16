@@ -12,10 +12,13 @@ class CreatePickUpTimeTable extends Migration
      */
     public function up()
     {
-        Schema::create('pickup_times', function(Blueprint $table) {
-            $table->increments('id');
-            $table->string('time_value');
-        });
+        if (!Schema::hasTable('pickup_times')) {
+            Schema::create('pickup_times', function(Blueprint $table) {
+                $table->increments('id');
+                $table->string('time_value');
+            });
+        }
+
     }
 
     /**

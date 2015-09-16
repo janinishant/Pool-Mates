@@ -12,12 +12,13 @@ class CreateAddressTable extends Migration
      */
     public function up()
     {
-        Schema::table('entity_address', function (Blueprint $table) {
-            $sql = "CREATE TABLE `entity_address` (`id` INT(11) auto_increment primary key,
+        if (!Schema::hasTable('entity_address')) {
+            Schema::table('entity_address', function (Blueprint $table) {
+                $sql = "CREATE TABLE `entity_address` (`id` INT(11) auto_increment primary key,
                     `full_address_text` VARCHAR(100) NOT NULL,
                     `street_name` VARCHAR(50) NOT NULL,
                     `route` VARCHAR (255) NOT NULL,
-                    `neighborhood` VARCHAR (255) NOT NULL,
+                    `neighborhood` VARCHAR (255),
                     `locality` VARCHAR (255) NOT NULL,
                     `administrative_area_level_2` VARCHAR (255) NOT NULL,
                     `administrative_area_level_1` VARCHAR (255) NOT NULL,
@@ -25,8 +26,9 @@ class CreateAddressTable extends Migration
                     `postal_zip` VARCHAR (20) NOT NULL,
                     `lat` POINT NOT NULL,
                     `lng` POINT NOT NULL)";
-            DB::connection()->getPdo()->exec($sql);
-        });
+                DB::connection()->getPdo()->exec($sql);
+            });
+        }
     }
 
     /**

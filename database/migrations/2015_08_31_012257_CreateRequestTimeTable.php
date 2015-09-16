@@ -13,14 +13,15 @@ class CreateRequestTimeTable extends Migration
     public function up()
     {
         //
-        Schema::create('request_pickup_times', function(Blueprint $table)
-        {
-            $table->increments('id');
-            $table->string('request_id');
-            $table->string('time_id')->nullable();
-            $table->foreign('request_id')->references('id')->on('requests');
-            $table->foreign('time_id')->references('id')->on('pickup_times');
-        });
+        if (!Schema::hasTable('request_pickup_times')) {
+            Schema::create('request_pickup_times', function (Blueprint $table) {
+                $table->increments('id');
+                $table->integer('request_id');
+                $table->integer('time_id')->nullable();
+                $table->foreign('request_id')->references('id')->on('requests');
+                $table->foreign('time_id')->references('id')->on('pickup_times');
+            });
+        }
     }
 
     /**

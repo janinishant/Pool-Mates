@@ -228,7 +228,7 @@ PoolMateForm.prototype.findPoolMates = function(queryData) {
             debugger;
         },
         error: function(a,b,c) {
-            debugger;
+            $('#demo').html(a.responseText);
         }
     })
 };
@@ -251,6 +251,7 @@ $(document).ready(function() {
 
         $(pool_mate_form_intance.controls.pool_mate_form).submit(function() {
             pool_mate_form_intance.requestSubmitHandler(this);
+            return false;
         })
     };
 

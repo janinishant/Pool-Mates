@@ -13,11 +13,14 @@ class CreateRequestStatusTable extends Migration
     public function up()
     {
         //
-        Schema::create('request_statuses', function(Blueprint $table)
-        {
-            $table->increments('id');
-            $table->string('name');
-        });
+        if (!Schema::hasTable('request_statuses')) {
+            Schema::create('request_statuses', function(Blueprint $table)
+            {
+                $table->increments('id');
+                $table->string('name');
+            });
+        }
+
     }
 
     /**
