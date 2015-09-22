@@ -71,11 +71,98 @@
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-8">
                     <button class="btn btn-primary btn-group-lg pm-long-button" type="submit"> <i class="fa fa-search"></i> Find Mates</button>
-
                 </div>
             </div>
-
         </form>
+
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3">
+
+                <div class="well">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <div style="width:80px; height:85px; background-color: darkgrey;"></div>
+                        </div>
+                        <div class="col-sm-10">
+                            <div class="row">
+                                <div class="col-sm-10">
+                                    <span class="font_bold"> First Last</span>
+                                </div>
+                                <div class="col-sm-2 text-right">
+                                    8:00am
+                                </div>
+                                <div class="col-sm-12">
+                                    <hr>
+                                </div>
+                                <div class="col-sm-10">
+                                    1189 W 29th St, Los Angeles, CA 90007
+                                </div>
+                                <div class="col-sm-2 text-right">
+                                    1.2mi
+                                </div>
+                                <div class="col-sm-10">
+                                    <span class="font_pink">To: </span> LAX, World Way, Los Angeles, CA, United States
+                                </div>
+                                <div class="col-sm-2 text-right">
+                                    0.3mi
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12"><br></div>
+                        <div class="col-sm-8">
+                            <br><span class=""> Suggested ride: Uber (You save <span class="font_bold font_pink">$15</span>)</span>
+                        </div>
+                        <div class="col-sm-4 text-right">
+                            <button type="button" class="btn btn-default">Contact user</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="well">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <div style="width:80px; height:85px; background-color: darkgrey;"></div>
+                        </div>
+                        <div class="col-sm-10">
+                            <div class="row">
+                                <div class="col-sm-10">
+                                    <span class="font_bold"> First Last</span>
+                                </div>
+                                <div class="col-sm-2 text-right">
+                                    8:00am
+                                </div>
+                                <div class="col-sm-12">
+                                    <hr>
+                                </div>
+                                <div class="col-sm-10">
+                                    1189 W 29th St, Los Angeles, CA 90007
+                                </div>
+                                <div class="col-sm-2 text-right">
+                                    1.2mi
+                                </div>
+                                <div class="col-sm-10">
+                                    <span class="font_pink">To: </span> LAX, World Way, Los Angeles, CA, United States
+                                </div>
+                                <div class="col-sm-2 text-right">
+                                    0.3mi
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12"><br></div>
+                        <div class="col-sm-8">
+                            <br><span class=""> Suggested ride: Uber (You save <span class="font_bold font_pink">$15</span>)</span>
+                        </div>
+                        <div class="col-sm-4 text-right">
+                            <button type="button" class="btn btn-default">Contact user</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+
     </div>
 
     <div id="demo">

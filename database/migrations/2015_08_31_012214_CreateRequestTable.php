@@ -20,7 +20,7 @@ class CreateRequestTable extends Migration
                 $table->integer('requester_id',false,true);
                 $table->integer('source_address_id');
                 $table->integer('destination_address_id');
-                $table->integer('request_status_id');
+                $table->integer('request_status_id', false, true);
                 $table->timestamps();
                 $table->foreign('requester_id')->references('id')->on('users');
                 $table->foreign('source_address_id')->references('id')->on('entity_address');

@@ -358,3 +358,42 @@ body {
 #pool-mate-form .pm-long-button {
     width: 100%;
 }
+
+/* css for search results */
+.font_bold {
+    font-weight: bold;
+}
+
+.font_pink {
+    color: rgb(234, 11, 140);
+}
+
+.text-right
+{
+    text-align: right !important;
+}
+.text-center
+{
+    text-align: center !important;
+}
+.text-left
+{
+    text-align: left !important;
+}
+.text-vcenter {
+    vertical-align: bottom;
+}
+
+hr {
+    //border-color: rgb(234, 11, 140);
+    border-color: darkgrey;
+}
+
+.btn-default, .btn-default > *, .btn:hover, .btn:hover > * {
+    background-color: rgb(234, 11, 140);
+    background-image: none;
+    color: white;
+}
+.font_medium {
+    font-size: 18px;
+}

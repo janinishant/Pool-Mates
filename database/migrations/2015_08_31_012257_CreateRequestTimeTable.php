@@ -17,7 +17,7 @@ class CreateRequestTimeTable extends Migration
             Schema::create('request_pickup_times', function (Blueprint $table) {
                 $table->increments('id');
                 $table->integer('request_id');
-                $table->integer('time_id')->nullable();
+                $table->integer('time_id', false, true)->nullable();
                 $table->foreign('request_id')->references('id')->on('requests');
                 $table->foreign('time_id')->references('id')->on('pickup_times');
             });
