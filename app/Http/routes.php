@@ -23,4 +23,5 @@ Route::get('test', 'HomeController@testing');
 Route::group(array('prefix' => 'api/v1'), function()
 {
     Route::resource('request', 'RequestController');
+    Route::resource('request_match', 'RequestMatchController');
 });

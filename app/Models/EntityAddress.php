@@ -19,7 +19,7 @@ class EntityAddress extends Model
      *
      * @var array
      */
-    protected $fillable = array('full_address_text','street_name','route','neighborhood','administrative_area_level_2','administrative_area_level_1','country','postal_zip','geo_location');
+    protected $fillable = array('full_address_text','street_name','route','locality','neighborhood','administrative_area_level_2','administrative_area_level_1','country','postal_zip','geo_location');
 
     protected $guarded = array();
 

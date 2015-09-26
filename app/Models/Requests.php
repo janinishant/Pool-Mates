@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+
 class Requests extends Model
 {
     /**
@@ -19,4 +20,37 @@ class Requests extends Model
      * @var array
      */
     protected $fillable = array('requester_id', 'source_address_id', 'destination_address_id','request_status_id');
+
+    /**
+     * Get the source address for a request
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+
+    public function sourceAddress() {
+        return $this->hasOne('App\Models\EntityAddress','id','source_address_id');
+    }
+
+    /**
+     * Get the destination address for a request
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function destinationAddress() {
+        return $this->hasOne('App\Models\EntityAddress', 'id', 'destination_address_id');
+    }
+
+    /**
+     * Get the mapped request statuses
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function requestStatus() {
+        return $this->hasOne('App\Models\RequestStatuses', 'id', 'request_status_id');
+    }
+
+    /**
+     * Get the mapped request times
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function requestPickupTimes() {
+        return $this->hasMany('App\Models\RequestPickupTimes', 'request_id', 'id');
+    }
 }

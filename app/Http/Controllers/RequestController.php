@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Auth;
 use App\Models\Requests;
 use App\Models\RequestPickupTimes;
+use App\Models\PickupTimes;
 use DB;
 
 class RequestController extends Controller
@@ -18,16 +19,6 @@ class RequestController extends Controller
      * @return Response
      */
     public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
     {
 
     }
@@ -44,12 +35,6 @@ class RequestController extends Controller
         //id of the user who is making the request
         $requester_id = Auth::user()->id;
 
-        $source_lat = $request->input('sourceAddressComponents.lat', 0);
-        $source_lng = $request->input('sourceAddressComponents.lng', 0);
-
-        $destination_lat = $request->input('destinationAddressComponents.lat', 0);
-        $destination_lng = $request->input('destinationAddressComponents.lng', 0);
-
         //Validate the request.
         $this->validate($request, array(
             'pick-up-location' => 'required',
@@ -62,11 +47,18 @@ class RequestController extends Controller
             'destinationAddressComponents.country' => 'required|max:180|min:-180',
         ));
 
+        $source_lat = $request->input('sourceAddressComponents.lat', 0);
+        $source_lng = $request->input('sourceAddressComponents.lng', 0);
+
+        $destination_lat = $request->input('destinationAddressComponents.lat', 0);
+        $destination_lng = $request->input('destinationAddressComponents.lng', 0);
+
         //Store mapping of address get the id
         $source_address = EntityAddress::firstOrCreate(array(
             'full_address_text' => $request->input('pick-up-location', ''),
             'street_name' => $request->input('sourceAddressComponents.street_number', ''),
             'route' => $request->input('sourceAddressComponents.route', ''),
+            'locality' => $request->input('sourceAddressComponents.locality', ''),
             'neighborhood' => $request->input('sourceAddressComponents.neighborhood', ''),
             'administrative_area_level_2' => $request->input('sourceAddressComponents.administrative_area_level_2', ''),
             'administrative_area_level_1' => $request->input('sourceAddressComponents.administrative_area_level_1', ''),
@@ -81,6 +73,7 @@ class RequestController extends Controller
             'full_address_text' => $request->input('drop-off-location', ''),
             'street_name' => $request->input('destinationAddressComponents.street_number', ''),
             'route' => $request->input('destinationAddressComponents.route', ''),
+            'locality' => $request->input('destinationAddressComponents.locality', ''),
             'neighborhood' => $request->input('destinationAddressComponents.neighborhood', ''),
             'administrative_area_level_2' => $request->input('destinationAddressComponents.administrative_area_level_2', ''),
             'administrative_area_level_1' => $request->input('destinationAddressComponents.administrative_area_level_1', ''),
@@ -100,13 +93,25 @@ class RequestController extends Controller
             'request_status_id' => $request_status_id
         ));
 
+        //get all values from pickup times table
+        $pickup_times = PickupTimes::all()->toArray();
+        $lookup_hash = array();
+        foreach($pickup_times as $index => $arr) {
+            $lookup_hash[$arr['id']] = $arr['time_value'];
+        }
+
         //Store the mapping of times
         $pickup_times = $request->input('pick-up-time');
         $request_pickup_time_array = array();
         foreach($pickup_times as $index => $time) {
+            $timestamp = time();
+            if (isset($lookup_hash[$time+1])) {
+                $today_date = date('Y-m-d');
+                $timestamp = $today_date. ' '. $lookup_hash[$time+1];
+            }
             $request_pickup_time_array[] = array(
                 'request_id' => $pool_request->id,
-                'time_id' => $time
+                'pickup_timestamp' => $timestamp
             );
         }
         RequestPickupTimes::insert($request_pickup_time_array);
@@ -120,6 +125,10 @@ class RequestController extends Controller
      */
     public function show($id)
     {
+        echo "<pre>";
+        print_r(Requests::find(11)->requestPickupTimes);
+        echo "</pre>";
+        exit;
 
     }
 

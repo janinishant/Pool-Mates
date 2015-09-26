@@ -1,4 +1,9 @@
 {
+<<<<<<< HEAD
   "css/all.css": "css/all-f73e5dc5.css",
   "js/all.js": "js/all-6f4ed6f4.js"
+=======
+  "css/all.css": "css/all-a724f0ff.css",
+  "js/all.js": "js/all-e79dcc20.js"
+>>>>>>> ef8454c... Filtering request by time for matching. Converted pickup times to timestamp for faster matches.
 }
