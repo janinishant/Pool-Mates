@@ -125,10 +125,6 @@ class RequestController extends Controller
      */
     public function show($id)
     {
-        echo "<pre>";
-        print_r(Requests::find(11)->requestPickupTimes);
-        echo "</pre>";
-        exit;
 
     }
 

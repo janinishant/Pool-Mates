@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\EntityAddress;
+use App\Models\RequestPickupTimes;
 use App\Models\RequestStatuses;
 use Illuminate\Http\Request;
 
@@ -50,6 +52,7 @@ class RequestMatchController extends Controller
      */
     public function show($id)
     {
+        //Unique namespace for request PMRequest.
         $request = PMRequest::find($id);
 
         $request_pickup_times = $request->requestPickupTimes->toArray();
@@ -59,12 +62,25 @@ class RequestMatchController extends Controller
             $request_pickup_times_array[] = $vArray['pickup_timestamp'];
         }
 
-        $time_filtered_requests = DB::table('request_pickup_times')
-            ->whereIn('pickup_timestamp',  $request_pickup_times_array)
-            ->where('request_id', '!=', $id)
-            ->select('request_id','pickup_timestamp')
-            ->get();
+        $time_filtered_requests = RequestPickupTimes::getRequestWithMatchingPickup($request_pickup_times_array, $id);
 
+        $result = array();
+        foreach($time_filtered_requests as $index => $request_info) {
+            if (!isset($result[$request_info->request_id])) {
+                $result[$request_info->request_id] = array();
+            }
+            $result[$request_info->request_id]['pickup_time'][] = $request_info->pickup_timestamp;
+        }
+
+        $time_filtered_requests_ids = array_keys($result);
+        //get source address for my request
+        $source_address = $request->sourceAddress;
+        //get destination address for my request.
+        $destination_address = $request->destinationAddress;
+
+        //Get spatial distance from MySQL for source address
+        $requests_by_source_distance = EntityAddress::getDistanceAmongRequestsByTimeFilteredIds($time_filtered_requests_ids, $source_address->lat, $source_address->lng, "source_address_id");
+        $requests_by_destination_distance = EntityAddress::getDistanceAmongRequestsByTimeFilteredIds($time_filtered_requests_ids, $destination_address->lat, $destination_address->lng, "destination_address_id");
     }
 
 

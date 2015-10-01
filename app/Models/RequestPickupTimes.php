@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 class RequestPickupTimes extends Model
 {
@@ -19,5 +20,14 @@ class RequestPickupTimes extends Model
      * @var array
      */
     protected $fillable = array('request_id', 'time_id');
+
+    public static function getRequestWithMatchingPickup($request_pickup_times_array, $request_id) {
+        $rpt = new RequestPickupTimes();
+        return DB::table($rpt->table)
+            ->whereIn('pickup_timestamp',  $request_pickup_times_array)
+            ->where('request_id', '!=', $request_id)
+            ->select('request_id','pickup_timestamp')
+            ->get();
+    }
 
 }

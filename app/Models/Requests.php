@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
+use DB;
 
 class Requests extends Model
 {
@@ -25,9 +25,9 @@ class Requests extends Model
      * Get the source address for a request
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-
     public function sourceAddress() {
-        return $this->hasOne('App\Models\EntityAddress','id','source_address_id');
+        return $this->hasOne('App\Models\EntityAddress','id','source_address_id')
+            ->select(array(DB::raw('X(geo_location) as `lat`'), DB::raw('Y(geo_location) as lng'), DB::raw('entity_address.*')));
     }
 
     /**
@@ -35,7 +35,8 @@ class Requests extends Model
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function destinationAddress() {
-        return $this->hasOne('App\Models\EntityAddress', 'id', 'destination_address_id');
+        return $this->hasOne('App\Models\EntityAddress', 'id', 'destination_address_id')
+            ->select(array(DB::raw('X(geo_location) as `lat`'), DB::raw('Y(geo_location) as lng'), DB::raw('entity_address.*')));
     }
 
     /**
@@ -53,4 +54,5 @@ class Requests extends Model
     public function requestPickupTimes() {
         return $this->hasMany('App\Models\RequestPickupTimes', 'request_id', 'id');
     }
+
 }
