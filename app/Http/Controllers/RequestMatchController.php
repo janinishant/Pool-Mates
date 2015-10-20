@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\EntityAddress;
+use App\Models\GoogleDistanceMatrixManager;
 use App\Models\RequestPickupTimes;
 use App\Models\RequestStatuses;
 use Illuminate\Http\Request;
@@ -62,6 +63,8 @@ class RequestMatchController extends Controller
             $request_pickup_times_array[] = $vArray['pickup_timestamp'];
         }
 
+        $request_pickup_times_hash = array_flip($request_pickup_times_array);
+
         $time_filtered_requests = RequestPickupTimes::getRequestWithMatchingPickup($request_pickup_times_array, $id);
 
         $result = array();
@@ -80,7 +83,34 @@ class RequestMatchController extends Controller
 
         //Get spatial distance from MySQL for source address
         $requests_by_source_distance = EntityAddress::getDistanceAmongRequestsByTimeFilteredIds($time_filtered_requests_ids, $source_address->lat, $source_address->lng, "source_address_id");
+        $requests_by_source_distance = EntityAddress::formatSpatialQueryResponse($requests_by_source_distance, $request_pickup_times_hash);
         $requests_by_destination_distance = EntityAddress::getDistanceAmongRequestsByTimeFilteredIds($time_filtered_requests_ids, $destination_address->lat, $destination_address->lng, "destination_address_id");
+        $requests_by_destination_distance = EntityAddress::formatSpatialQueryResponse($requests_by_destination_distance, $request_pickup_times_hash);
+
+        $gdm_request_source = $source_address->lat.','.$source_address->lng;
+        $gdm_request_destination = $destination_address->lat.','.$destination_address->lng;
+
+        $gdm_request_potential_source_matches = array();
+        $gdm_request_potential_destination_matches = array();
+
+
+        foreach($requests_by_source_distance as $distance) {
+            $gdm_request_potential_source_matches[] = $distance['latitude'].','.$distance['longitude'];
+        }
+
+        foreach($requests_by_destination_distance as $distance) {
+            $gdm_request_potential_destination_matches[] = $distance['latitude'].','.$distance['longitude'];
+        }
+
+        $gdm_request_potential_source_matches = GoogleDistanceMatrixManager::get_distance_matrix($gdm_request_source, $gdm_request_potential_source_matches);
+        $gdm_request_potential_source_matches = json_decode($gdm_request_potential_source_matches, true);
+        $gdm_request_potential_destination_matches = GoogleDistanceMatrixManager::get_distance_matrix($gdm_request_destination, $gdm_request_potential_destination_matches);
+        $gdm_request_potential_destination_matches = json_decode($gdm_request_potential_destination_matches, true);
+
+
+        $api_response = PMRequest::formatAPIResponse($request, $source_address, $destination_address, $requests_by_source_distance, $requests_by_destination_distance, $gdm_request_potential_source_matches, $gdm_request_potential_destination_matches);
+        
+        return $api_response;
     }
 
 
