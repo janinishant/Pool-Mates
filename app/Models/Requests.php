@@ -62,8 +62,8 @@ class Requests extends Model
      * @param $destination_address User Request destination address
      * @param array $source_spatial_data Estimates returned by MySQL spatial query for source matches
      * @param array $destination_spatial_data Estimates returned by MySQL spatial query for destination matches
-     * @param $gdm_request_potential_source_matches Estimates returned by Google Distance Matrix API Request for source matches
-     * @param $gdm_request_potential_destination_matches Estimates returned by Google Distance Matrix API Request for destination matches
+     * @param $gdm_request_potential_source_matches array Estimates returned by Google Distance Matrix API Request for source matches
+     * @param $gdm_request_potential_destination_matches array Estimates returned by Google Distance Matrix API Request for destination matches
      * @return array
      */
     public static function formatAPIResponse($request, $source_address, $destination_address, array $source_spatial_data, array $destination_spatial_data, $gdm_request_potential_source_matches, $gdm_request_potential_destination_matches) {
@@ -74,12 +74,12 @@ class Requests extends Model
         $api_response['request_id'] = $request->id;
         $api_response['request_source_address'] = $source_address->full_address_text;
         $api_response['request_destination_address'] = $destination_address->full_address_text;
-        $api_response['source_matches'] = self::formatAddressForAPIResponse($source_spatial_data, $gdm_request_potential_source_matches, $ideal_matches);
-        $api_response['destination_matches'] = self::formatAddressForAPIResponse($destination_spatial_data, $gdm_request_potential_destination_matches, $ideal_matches, $source_address_matched_request_ids_map);
+        $source_matches = self::formatAddressForAPIResponse($source_spatial_data, $gdm_request_potential_source_matches, $ideal_matches);
+        $destination_matches = self::formatAddressForAPIResponse($destination_spatial_data, $gdm_request_potential_destination_matches, $ideal_matches, $source_address_matched_request_ids_map);
 
         foreach ($ideal_matches as $index => $match_request_id) {
-            $api_response['best_matches'][$index]['source_meta'] = $api_response['source_matches'][$source_address_matched_request_ids_map[$match_request_id]];
-            $api_response['best_matches'][$index]['destination_meta'] = $api_response['destination_matches'][$destination_address_matched_request_ids_map[$match_request_id]];
+            $api_response['best_matches'][$index]['matched_source'] = $source_matches[$source_address_matched_request_ids_map[$match_request_id]];
+            $api_response['best_matches'][$index]['matched_destination'] = $destination_matches[$destination_address_matched_request_ids_map[$match_request_id]];
         }
 
         return $api_response;
@@ -88,7 +88,7 @@ class Requests extends Model
     /**
      * A common method that formats API data for source and destination matches.
      * @param $spatialData
-     * @param $gdm_request_potential_source_matches Assumes single source & multiple destinations
+     * @param $gdm_request_potential_source_matches array Assumes single source & multiple destinations
      * @param array $match_source_destination_pairs
      * @param $ideal_matches
      * @return array

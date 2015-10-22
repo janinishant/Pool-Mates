@@ -32,14 +32,4 @@ class HomeController extends Controller
         return View('home.landing');
     }
 
-    public function testing()
-    {
-        $output = GoogleDistanceMatrixManager::get_distance_matrix(array("1665 26th Street Santa Monica"), array('Marina Del Rey'));
-        echo "<pre>";
-        print_r($output);
-        echo "</pre>";
-        exit;
-
-    }
-
 }

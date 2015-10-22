@@ -229,6 +229,9 @@ PoolMateForm.prototype.findPoolMates = function(queryData) {
         },
         error: function(a,b,c) {
             $('#demo').html(a.responseText);
+        },
+        complete: function() {
+            $('body').removeClass("loading");
         }
     })
 };
