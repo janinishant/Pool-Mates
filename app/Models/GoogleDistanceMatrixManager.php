@@ -34,7 +34,7 @@ class GoogleDistanceMatrixManager extends Model
         $gdm_url = env('GOOGLE_DISTANCE_MATRIX_URL');
 
         $gdm_options = array(
-            'origins' => implode("|", $origins),
+            'origins' => is_array($origins) ? implode("|", $origins) : $origins,
             'destinations' => implode("|", $destinations),
             'key' => env('GOOGLE_DISTANCE_MATRIX_KEY'),
             'mode' => $mode,

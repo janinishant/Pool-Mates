@@ -24,7 +24,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      *
      * @var array
      */
-    protected $fillable = ['name', 'email', 'password', 'provider_id'];
+    protected $fillable = ['name', 'email',  'provider_id'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -76,5 +76,19 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
             $user->username = $userData->nickname;
             $user->save();
         }
+    }
+
+    public static function getUserForRequest($user_id) {
+        $response = array();
+        $user = User::find($user_id);
+        $response['user_name'] = $user->user_name;
+        $response['name'] = $user->name;
+        $response['avatar'] = $user->avatar;
+        echo "<pre>";
+        print_r($response);
+        echo "</pre>";
+        exit;
+
+
     }
 }

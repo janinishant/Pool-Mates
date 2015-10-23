@@ -26,7 +26,7 @@
                         <li class="text-center"><a href="/customer">Appointments</a></li>
                         <li class="text-center"><a href="/customer/account">My Account</a></li>
                         <li class="divider"></li>
-                        <li class="text-center"><a href="/customer/signout">Sign Out</a></li>
+                        <li class="text-center"><a href="/logout">Sign Out</a></li>
                     </ul>
                 </li>
             </ul>

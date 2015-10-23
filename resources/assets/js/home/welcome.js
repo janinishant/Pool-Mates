@@ -220,7 +220,7 @@ PoolMateForm.prototype.requestSubmitHandler = function (submittedForm) {
  */
 PoolMateForm.prototype.findPoolMates = function(queryData) {
     $.ajax({
-        url: '/api/v1/request/  ',
+        url: '/api/v1/request/',
         data: queryData,
         type: 'POST',
         dataType: 'json',
@@ -229,6 +229,9 @@ PoolMateForm.prototype.findPoolMates = function(queryData) {
         },
         error: function(a,b,c) {
             $('#demo').html(a.responseText);
+        },
+        complete: function() {
+            $('body').removeClass("loading");
         }
     })
 };

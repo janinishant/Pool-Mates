@@ -17,10 +17,10 @@ Route::get('/', ['as' => 'landing', 'uses' => 'HomeController@index']);
 //provider can be any, twitter, facebook, etc
 Route::get('login/{provider?}', 'AuthController@login');
 
-//testing GDM API
-Route::get('test', 'HomeController@testing');
+Route::get('/logout', 'AuthController@logout');
 
 Route::group(array('prefix' => 'api/v1'), function()
 {
     Route::resource('request', 'RequestController');
+    Route::resource('request_match', 'RequestMatchController');
 });
