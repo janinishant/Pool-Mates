@@ -110,10 +110,10 @@
                         </div>
                         <div class="col-sm-12"><br></div>
                         <div class="col-sm-8">
-                            <br><span class=""> Suggested ride: Uber (You save <span class="font_bold font_pink">$15</span>)</span>
+                            <br><span class="font_medium"> Suggested ride: Uber (You save <span class="font_bold font_pink">$15</span>)</span>
                         </div>
                         <div class="col-sm-4 text-right">
-                            <button type="button" class="btn btn-default">Contact user</button>
+                            <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-comment"></span>&nbsp; Contact user</button>
                         </div>
                     </div>
                 </div>
@@ -150,10 +150,10 @@
                         </div>
                         <div class="col-sm-12"><br></div>
                         <div class="col-sm-8">
-                            <br><span class=""> Suggested ride: Uber (You save <span class="font_bold font_pink">$15</span>)</span>
+                            <br><span class="font_medium"> Suggested ride: Uber (You save <span class="font_bold font_pink">$15</span>)</span>
                         </div>
                         <div class="col-sm-4 text-right">
-                            <button type="button" class="btn btn-default">Contact user</button>
+                            <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-comment"></span>&nbsp; Contact user</button>
                         </div>
                     </div>
                 </div>
