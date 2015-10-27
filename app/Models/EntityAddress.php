@@ -25,16 +25,16 @@ class EntityAddress extends Model
 
     /**
      * TODO: Add filter for open requests
-     * @param $time_filtered_ids Requests that are valid in the time
+     * @param $time_filtered_ids array that are valid in the time
      * @param Double $lat Request latitude
      * @param Double $lng Request longitude
      * @param String $request_column Match it to either source or destination
      * @return mixed
      */
-    public static function getDistanceAmongRequestsByTimeFilteredIds($time_filtered_ids, $lat, $lng, $request_column) {
+    public static function getDistanceAmongRequestsByTimeFilteredIds($time_filtered_ids, $lat, $lng, $request_column, $request_pickup_times_hash) {
         $time_filtered_requests_id =  implode(',', $time_filtered_ids);
 
-        return DB::select(DB::raw("SELECT requests.id as request_id, entity_address.id as address_id,
+        $results = DB::select(DB::raw("SELECT requests.id as request_id, entity_address.id as address_id,
                   `request_pickup_times`.pickup_timestamp as `request_pickup_time`,
                   `entity_address`.`full_address_text` as `full_address_text`,
                   X(entity_address.geo_location) as latitude,
@@ -48,6 +48,8 @@ class EntityAddress extends Model
                   AND `requests`.`id` = `request_pickup_times`.`request_id`
                   having distance < 1
                   order by distance LIMIT 20"));
+
+        return static::formatSpatialQueryResponse($results, $request_pickup_times_hash);
     }
 
     public static function formatSpatialQueryResponse($spatialQueryResponse, $requestPickupTimeHash) {
@@ -73,6 +75,27 @@ class EntityAddress extends Model
             }
         }
         return $response;
+    }
+
+    /**
+     * Get comma separated values for lat and long.
+     * Takes both object and array as input
+     * @param $input_address
+     * @return array|bool|string
+     */
+    public static function getCSVForLatLong($input_address)
+    {
+        if (is_array($input_address) && !empty($input_address)) {
+            $response = array();
+            foreach($input_address as $distance) {
+                $response[] = $distance['latitude'].','.$distance['longitude'];
+                return $response;
+            }
+        } else if (!empty($input_address)) {
+            return $input_address->lat. ',' . $input_address->lng;
+        }
+
+        return false;
     }
 
 }

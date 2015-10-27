@@ -72,16 +72,21 @@ class Requests extends Model
         $destination_address_matched_request_ids_map = array_flip(array_keys($destination_spatial_data));
         $ideal_matches = array();
         $api_response['request_id'] = $request->id;
+        $api_response['pickup_time'] = RequestPickupTimes::formatPickUpTimesForAPI($request->requestPickupTimes->toArray());
         $api_response['request_source_address'] = $source_address->full_address_text;
         $api_response['request_destination_address'] = $destination_address->full_address_text;
         $source_matches = self::formatAddressForAPIResponse($source_spatial_data, $gdm_request_potential_source_matches, $ideal_matches);
         $destination_matches = self::formatAddressForAPIResponse($destination_spatial_data, $gdm_request_potential_destination_matches, $ideal_matches, $source_address_matched_request_ids_map);
 
+
         foreach ($ideal_matches as $index => $match_request_id) {
+            $api_response['best_matches'][$index]['request_id'] = $match_request_id;
+            $api_response['best_matches'][$index]['pickup_times'] = $source_spatial_data[$match_request_id]['request_pickup_times'];
+            //This is really bad, need to change this
             $api_response['best_matches'][$index]['matched_source'] = $source_matches[$source_address_matched_request_ids_map[$match_request_id]];
             $api_response['best_matches'][$index]['matched_destination'] = $destination_matches[$destination_address_matched_request_ids_map[$match_request_id]];
         }
-
+        
         return $api_response;
     }
 
@@ -97,8 +102,6 @@ class Requests extends Model
         $api_response = array();
         $index = 0;
         foreach ($spatialData as $source_match_request_id => $row) {
-            $api_response[$index]['request_id'] = $source_match_request_id;
-            $api_response[$index]['pickup_times'] = $row['request_pickup_times'];
             $api_response[$index]['full_address'] = $row['full_address_text'];
             $api_response[$index]['spatial_estimate'] = $row['spatial_estimate'];
             $api_response[$index]['gdm_full_address'] = $gdm_request_potential_source_matches['destination_addresses'][$index];

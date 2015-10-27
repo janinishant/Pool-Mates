@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Config;
 
 /**
  * Class GoogleDistanceMatrixManager
@@ -25,9 +26,10 @@ class GoogleDistanceMatrixManager extends Model
      * @param $origins
      * @param $destinations
      * @param string $mode
+     * @param string $output_format
      * @return mixed
      */
-    public static function get_distance_matrix($origins, $destinations, $mode = 'walking')
+    public static function get_distance_matrix($origins, $destinations, $output_format, $mode = 'walking')
     {
         $curl = curl_init();
 
@@ -52,11 +54,10 @@ class GoogleDistanceMatrixManager extends Model
 
         curl_close($curl);
 
-        return $result;
-    }
+        if (Config::get('pm_constants.format.json') == $output_format) {
+            return $result;
+        }
 
-    //Sort the destinations by distance
-    private function sort_destination_by_distance() {
-
+        return json_decode($result, true);
     }
 }

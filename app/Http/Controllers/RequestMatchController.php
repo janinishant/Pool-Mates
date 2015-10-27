@@ -13,8 +13,9 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\Requests as PMRequest;
 use DB;
+use Illuminate\Support\Facades\Config;
 
-class RequestMatchController extends Controller
+class RequestMatchController extends PMBaseController
 {
     /**
      * Display a listing of the resource.
@@ -57,6 +58,12 @@ class RequestMatchController extends Controller
         //Unique namespace for request PMRequest.
         $request = PMRequest::find($id);
 
+        //Not a valid request
+        if (empty($request)) {
+            return parent::InvalidRequestResponseHandler();
+            exit;
+        }
+
         $request_pickup_times = $request->requestPickupTimes->toArray();
 
         $request_pickup_times_array = array();
@@ -66,7 +73,14 @@ class RequestMatchController extends Controller
 
         $request_pickup_times_hash = array_flip($request_pickup_times_array);
 
-        $time_filtered_requests = RequestPickupTimes::getRequestWithMatchingPickup($request_pickup_times_array, $id);
+        $time_filtered_requests = RequestPickupTimes::getRequestWithMatchingPickup($request_pickup_times_array, $id, $request->requester_id);
+
+        //No requests matched, you want to suggest somthing to the user here
+        if (empty($time_filtered_requests)) {
+            return parent::NoRequestMatchResponseHandler();
+            exit;
+        }
+
 
         $result = array();
         foreach($time_filtered_requests as $index => $request_info) {
@@ -83,41 +97,22 @@ class RequestMatchController extends Controller
         $destination_address = $request->destinationAddress;
 
         //Get spatial distance from MySQL for source address
-        $requests_by_source_distance = EntityAddress::getDistanceAmongRequestsByTimeFilteredIds($time_filtered_requests_ids, $source_address->lat, $source_address->lng, "source_address_id");
-        $requests_by_source_distance = EntityAddress::formatSpatialQueryResponse($requests_by_source_distance, $request_pickup_times_hash);
-        $requests_by_destination_distance = EntityAddress::getDistanceAmongRequestsByTimeFilteredIds($time_filtered_requests_ids, $destination_address->lat, $destination_address->lng, "destination_address_id");
-        $requests_by_destination_distance = EntityAddress::formatSpatialQueryResponse($requests_by_destination_distance, $request_pickup_times_hash);
+        $requests_by_source_distance = EntityAddress::getDistanceAmongRequestsByTimeFilteredIds($time_filtered_requests_ids, $source_address->lat, $source_address->lng, "source_address_id", $request_pickup_times_hash);
+        $requests_by_destination_distance = EntityAddress::getDistanceAmongRequestsByTimeFilteredIds($time_filtered_requests_ids, $destination_address->lat, $destination_address->lng, "destination_address_id", $request_pickup_times_hash);
 
-        $gdm_request_source = $source_address->lat.','.$source_address->lng;
-        $gdm_request_destination = $destination_address->lat.','.$destination_address->lng;
+        $gdm_request_source = EntityAddress::getCSVForLatLong($source_address);
+        $gdm_request_destination = EntityAddress::getCSVForLatLong($destination_address);
 
-        $gdm_request_potential_source_matches = array();
-        $gdm_request_potential_destination_matches = array();
+        $gdm_request_potential_source_matches = EntityAddress::getCSVForLatLong($requests_by_source_distance);
+        $gdm_request_potential_destination_matches = EntityAddress::getCSVForLatLong($requests_by_destination_distance);
 
 
-        foreach($requests_by_source_distance as $distance) {
-            $gdm_request_potential_source_matches[] = $distance['latitude'].','.$distance['longitude'];
-        }
-
-        foreach($requests_by_destination_distance as $distance) {
-            $gdm_request_potential_destination_matches[] = $distance['latitude'].','.$distance['longitude'];
-        }
-
-        $gdm_request_potential_source_matches = GoogleDistanceMatrixManager::get_distance_matrix($gdm_request_source, $gdm_request_potential_source_matches);
-        $gdm_request_potential_source_matches = json_decode($gdm_request_potential_source_matches, true);
-        $gdm_request_potential_destination_matches = GoogleDistanceMatrixManager::get_distance_matrix($gdm_request_destination, $gdm_request_potential_destination_matches);
-        $gdm_request_potential_destination_matches = json_decode($gdm_request_potential_destination_matches, true);
-
+        $gdm_request_potential_source_matches = GoogleDistanceMatrixManager::get_distance_matrix($gdm_request_source, $gdm_request_potential_source_matches, Config::get('pm_constants.formats.array'));
+        $gdm_request_potential_destination_matches = GoogleDistanceMatrixManager::get_distance_matrix($gdm_request_destination, $gdm_request_potential_destination_matches, Config::get('pm_constants.formats.array'));
 
         $api_response = PMRequest::formatAPIResponse($request, $source_address, $destination_address, $requests_by_source_distance, $requests_by_destination_distance, $gdm_request_potential_source_matches, $gdm_request_potential_destination_matches);
 
-        echo "<pre>";
-        print_r($api_response);
-        echo "</pre>";
-        exit;
-
-
-        return $api_response;
+        return parent::ValidResponseHandler($api_response);
     }
 
 

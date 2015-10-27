@@ -84,11 +84,6 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         $response['user_name'] = $user->user_name;
         $response['name'] = $user->name;
         $response['avatar'] = $user->avatar;
-        echo "<pre>";
-        print_r($response);
-        echo "</pre>";
-        exit;
-
-
+        return $response;
     }
 }
