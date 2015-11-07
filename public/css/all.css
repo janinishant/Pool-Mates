@@ -75,7 +75,14 @@ body {
     min-height: 450px;
     color: #fff;
     text-align: center;
-    background-color: rgb(234, 11, 140);
+    /*background-color: rgb(234, 11, 140);*/
+    background: url(../../../../images/bg1.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover; /* For WebKit*/
+    -moz-background-size: cover;    /* Mozilla*/
+    -o-background-size: cover;      /* Opera*/
+    background-size: cover;         /* Generic*/
+    /*background-size: 100% auto;*/
+    /*height: 100vh;*/
 }
 .main-header-content {
     position: absolute;
@@ -350,7 +357,8 @@ body {
     min-height: 70px;
     margin-bottom: 0;
     border: 1px solid transparent;
-    background-color: rgb(234, 11, 140);
+    /*background-color: rgb(234, 11, 140);*/
+    background-color: rgb(254, 112, 11);
 }
 
 .navbar-default .navbar-nav > li > a {
@@ -428,11 +436,26 @@ hr {
 }
 
 .btn-default, .btn-default > *, .btn:hover, .btn:hover > * {
-    background-color: rgb(234, 11, 140);
+    /*background-color: rgb(234, 11, 140);*/
+    background-color: rgb(254, 112, 11);
     background-image: none;
     color: white;
 }
 .font_medium {
-    font-size: 18px;
+    font-size: 17px;
+}
+.pad_top {
+    padding-top: 30px;
+}
+.userinfo_bg{
+    background: url(../../../../images/bg3.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover; /* For WebKit*/
+    -moz-background-size: cover;    /* Mozilla*/
+    -o-background-size: cover;      /* Opera*/
+    background-size: cover;         /* Generic*/
+    /*background-size: 100% auto;*/
+    /*height: 100vh;*/
+    height: 91%;
+    width: 100%;
 }
 /*# sourceMappingURL=all.css.map */

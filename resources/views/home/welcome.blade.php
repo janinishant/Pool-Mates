@@ -6,17 +6,17 @@
                 <div class="col-sm-12 col-lg-4">
                     <label for="pick-up-location">Pick-up Location</label>
                     <p class="help-block"></p>
-                    <input id="pick-up-location" class="form-control input-group-lg reg_name" type="text" name="pick-up-location" title="Enter pick-up location" placeholder="Pick-up location" required>
+                    <input id="pick-up-location" class="form-control input-group-lg reg_name" type="text" name="pick-up-location" title="Enter pick-up location" placeholder="Pick-up location" >
                 </div>
                 <div class="col-sm-12 col-lg-4">
                     <label for="drop-off-location">Drop-off Location</label>
                     <p class="help-block"></p>
-                    <input id="drop-off-location" class="form-control input-group-lg reg_name" type="text" name="drop-off-location" title="Enter drop-off location" placeholder="Drop-off location" required>
+                    <input id="drop-off-location" class="form-control input-group-lg reg_name" type="text" name="drop-off-location" title="Enter drop-off location" placeholder="Drop-off location" >
                 </div>
                 <div class="col-sm-12 col-lg-4">
                     <label for="pick-up-time" >Pick up time</label>
                     <p class="help-block"></p>
-                    <select multiple="multiple" class="form-control" id="pick-up-time" name="pick-up-time[]" required>
+                    <select multiple="multiple" class="form-control" id="pick-up-time" name="pick-up-time[]" >
                         <option value="0">00:00</option>
                         <option value="1">00:30</option>
                         <option value="2">01:00</option>
@@ -75,91 +75,92 @@
             </div>
         </form>
 
-        <div class="row">
-            <div class="col-sm-6 col-sm-offset-3">
+        {{--<div class="row">--}}
+            {{--<div class="col-sm-6 col-sm-offset-3">--}}
 
-                <div class="well">
-                    <div class="row">
-                        <div class="col-sm-2">
-                            <div style="width:80px; height:85px; background-color: darkgrey;"></div>
-                        </div>
-                        <div class="col-sm-10">
-                            <div class="row">
-                                <div class="col-sm-10">
-                                    <span class="font_bold"> First Last</span>
-                                </div>
-                                <div class="col-sm-2 text-right">
-                                    8:00am
-                                </div>
-                                <div class="col-sm-12">
-                                    <hr>
-                                </div>
-                                <div class="col-sm-10">
-                                    1189 W 29th St, Los Angeles, CA 90007
-                                </div>
-                                <div class="col-sm-2 text-right">
-                                    1.2mi
-                                </div>
-                                <div class="col-sm-10">
-                                    <span class="font_pink">To: </span> LAX, World Way, Los Angeles, CA, United States
-                                </div>
-                                <div class="col-sm-2 text-right">
-                                    0.3mi
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-12"><br></div>
-                        <div class="col-sm-8">
-                            <br><span class="font_medium"> Suggested ride: Uber (You save <span class="font_bold font_pink">$15</span>)</span>
-                        </div>
-                        <div class="col-sm-4 text-right">
-                            <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-comment"></span>&nbsp; Contact user</button>
-                        </div>
-                    </div>
-                </div>
+                {{--<div class="well">--}}
+                    {{--<div class="row">--}}
+                        {{--<div class="col-sm-2">--}}
+                            {{--<div style="width:80px; height:85px; background-color: darkgrey;"></div>--}}
+                        {{--</div>--}}
+                        {{--<div class="col-sm-10">--}}
+                            {{--<div class="row">--}}
+                                {{--<div class="col-sm-10">--}}
+                                    {{--<span class="font_bold"> First Last</span>--}}
+                                {{--</div>--}}
+                                {{--<div class="col-sm-2 text-right">--}}
+                                    {{--8:00am--}}
+                                {{--</div>--}}
+                                {{--<div class="col-sm-12">--}}
+                                    {{--<hr>--}}
+                                {{--</div>--}}
+                                {{--<div class="col-sm-10">--}}
+                                    {{--1189 W 29th St, Los Angeles, CA 90007--}}
+                                {{--</div>--}}
+                                {{--<div class="col-sm-2 text-right">--}}
+                                    {{--1.2mi--}}
+                                {{--</div>--}}
+                                {{--<div class="col-sm-10">--}}
+                                    {{--<span class="font_pink">To: </span> LAX, World Way, Los Angeles, CA, United States--}}
+                                {{--</div>--}}
+                                {{--<div class="col-sm-2 text-right">--}}
+                                    {{--0.3mi--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                        {{--<div class="col-sm-12"><br></div>--}}
+                        {{--<div class="col-sm-8">--}}
+                            {{--<br><span class="font_medium"> Suggested ride: Uber (You save <span class="font_bold font_pink">$15</span>)</span>--}}
+                        {{--</div>--}}
+                        {{--<div class="col-sm-4 text-right">--}}
+                            {{--<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-comment"></span>&nbsp; Contact user</button>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
 
-                <div class="well">
-                    <div class="row">
-                        <div class="col-sm-2">
-                            <div style="width:80px; height:85px; background-color: darkgrey;"></div>
-                        </div>
-                        <div class="col-sm-10">
-                            <div class="row">
-                                <div class="col-sm-10">
-                                    <span class="font_bold"> First Last</span>
-                                </div>
-                                <div class="col-sm-2 text-right">
-                                    8:00am
-                                </div>
-                                <div class="col-sm-12">
-                                    <hr>
-                                </div>
-                                <div class="col-sm-10">
-                                    1189 W 29th St, Los Angeles, CA 90007
-                                </div>
-                                <div class="col-sm-2 text-right">
-                                    1.2mi
-                                </div>
-                                <div class="col-sm-10">
-                                    <span class="font_pink">To: </span> LAX, World Way, Los Angeles, CA, United States
-                                </div>
-                                <div class="col-sm-2 text-right">
-                                    0.3mi
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-12"><br></div>
-                        <div class="col-sm-8">
-                            <br><span class="font_medium"> Suggested ride: Uber (You save <span class="font_bold font_pink">$15</span>)</span>
-                        </div>
-                        <div class="col-sm-4 text-right">
-                            <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-comment"></span>&nbsp; Contact user</button>
-                        </div>
-                    </div>
-                </div>
+                {{--<div class="well">--}}
+                    {{--<div class="row">--}}
+                        {{--<div class="col-sm-2">--}}
+                            {{--<div style="width:80px; height:85px; background-color: darkgrey;"></div>--}}
+                        {{--</div>--}}
+                        {{--<div class="col-sm-10">--}}
+                            {{--<div class="row">--}}
+                                {{--<div class="col-sm-10">--}}
+                                    {{--<span class="font_bold"> First Last</span>--}}
+                                {{--</div>--}}
+                                {{--<div class="col-sm-2 text-right">--}}
+                                    {{--8:00am--}}
+                                {{--</div>--}}
+                                {{--<div class="col-sm-12">--}}
+                                    {{--<hr>--}}
+                                {{--</div>--}}
+                                {{--<div class="col-sm-10">--}}
+                                    {{--1189 W 29th St, Los Angeles, CA 90007--}}
+                                {{--</div>--}}
+                                {{--<div class="col-sm-2 text-right">--}}
+                                    {{--1.2mi--}}
+                                {{--</div>--}}
+                                {{--<div class="col-sm-10">--}}
+                                    {{--<span class="font_pink">To: </span> LAX, World Way, Los Angeles, CA, United States--}}
+                                {{--</div>--}}
+                                {{--<div class="col-sm-2 text-right">--}}
+                                    {{--0.3mi--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                        {{--<div class="col-sm-12"><br></div>--}}
+                        {{--<div class="col-sm-8">--}}
+                            {{--<br><span class="font_medium"> Suggested ride: Uber (You save <span class="font_bold font_pink">$15</span>)</span>--}}
+                        {{--</div>--}}
+                        {{--<div class="col-sm-4 text-right">--}}
+                            {{--<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-comment"></span>&nbsp; Contact user</button>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
 
-            </div>
-        </div>
+            {{--</div>--}}
+        {{--</div>--}}
+        <div id="matchedResults"></div>
 
 
 

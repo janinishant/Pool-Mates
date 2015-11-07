@@ -111,11 +111,6 @@ class RequestMatchController extends Controller
 
         $api_response = PMRequest::formatAPIResponse($request, $source_address, $destination_address, $requests_by_source_distance, $requests_by_destination_distance, $gdm_request_potential_source_matches, $gdm_request_potential_destination_matches);
 
-        echo "<pre>";
-        print_r($api_response);
-        echo "</pre>";
-        exit;
-
 
         return $api_response;
     }

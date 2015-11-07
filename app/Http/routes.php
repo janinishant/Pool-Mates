@@ -24,3 +24,6 @@ Route::group(array('prefix' => 'api/v1'), function()
     Route::resource('request', 'RequestController');
     Route::resource('request_match', 'RequestMatchController');
 });
+
+Route::get('/profile', 'ProfileController@userinfo');
+Route::get('/profile/edit', 'ProfileController@edituserinfo');

@@ -219,21 +219,22 @@ PoolMateForm.prototype.requestSubmitHandler = function (submittedForm) {
  * @param queryData
  */
 PoolMateForm.prototype.findPoolMates = function(queryData) {
-    $.ajax({
-        url: '/api/v1/request/',
-        data: queryData,
-        type: 'POST',
-        dataType: 'json',
-        success: function(a,b,c) {
-            debugger;
-        },
-        error: function(a,b,c) {
-            $('#demo').html(a.responseText);
-        },
-        complete: function() {
-            $('body').removeClass("loading");
-        }
-    })
+    //$.ajax({
+    //    url: '/api/v1/request/',
+    //    data: queryData,
+    //    type: 'POST',
+    //    dataType: 'json',
+    //    success: function(a,b,c) {
+    //        debugger;
+    //    },
+    //    error: function(a,b,c) {
+    //        $('#demo').html(a.responseText);
+    //    },
+    //    complete: function() {
+    //        $('body').removeClass("loading");
+    //    }
+    //});
+    makeAJAXRequestToDisplayMatchedUsers();
 };
 
 $(document).ready(function() {
@@ -258,7 +259,84 @@ $(document).ready(function() {
         })
     };
 
+    //AJAX call to get and display the matched users
+    $("pool-mate-form").submit(function(){
+        makeAJAXRequestToDisplayMatchedUsers();
+    });
+
 });
+
+function makeAJAXRequestToDisplayMatchedUsers(){
+    $.ajax({
+        url: "/api/v1/request_match/13",
+        dataType: "json",
+        success: function(result){
+            //$("#matchedResults1").html(result.request_id);
+            var resulthtml = '<div class="row">\
+            <div class="col-sm-6 col-sm-offset-3">';
+            //var best_matches = result.best_matches;
+            for(var i=0;i<result.best_matches.length;i++){
+                resulthtml += '<div class="well">\
+                    <div class="row">\
+                        <div class="col-sm-2">\
+                            <div style="width:80px; height:85px; background-color: darkgrey;"></div>\
+                        </div>\
+                        <div class="col-sm-10">\
+                            <div class="row">\
+                                <div class="col-sm-10">\
+                                    <span class="font_bold"> First Last</span>\
+                                </div>\
+                                <div class="col-sm-2 text-right">\
+                                    8:00am\
+                                </div>\
+                                <div class="col-sm-12">\
+                                <hr>\
+                                </div>\
+                                <div class="col-sm-10">\
+                                    '+result.best_matches[i].matched_source.full_address+'\
+                                </div>\
+                                <div class="col-sm-2 text-right">\
+                                    '+result.best_matches[i].matched_source.gdm_walk_distance_estimate+'\
+                                </div>\
+                                <div class="col-sm-10">\
+                                    <span class="font_pink">To: </span>'+result.best_matches[i].matched_destination.full_address+'\
+                                </div>\
+                                <div class="col-sm-2 text-right">\
+                                    '+result.best_matches[i].matched_destination.gdm_walk_distance_estimate+'\
+                                </div>\
+                            </div>\
+                        </div>\
+                        <div class="col-sm-12"><br></div>\
+                            <div class="col-sm-8">\
+                                <br><span class="font_medium"> Suggested ride: Uber (You save <span class="font_bold font_pink">$15</span>)</span>\
+                        </div>\
+                        <div class="col-sm-4 text-right">\
+                            <button type="button" class="btn btn-default msg"><span class="glyphicon glyphicon-comment"></span>&nbsp; Contact user</button>\
+                        </div>\
+                    </div>\
+                </div>';
+            }
+            resulthtml += '</div>\
+                </div>';
+            $('#matchedResults').html(resulthtml);
+            $('.msg').click(function(){
+                $.ajax({
+                    url: "http://twilio-env1.elasticbeanstalk.com/send-sms.php?name=Tushal&phone=+12132949671",
+                    type: "GET",
+                    success: function(result){
+                        alert(result);
+                    },
+                    error: function(result,b,c) {
+                        console.log(result);
+                    }
+                });
+            });
+        },
+        error: function(result,b,c) {
+            console.log(result);
+        }
+    });
+}
 
 
 
